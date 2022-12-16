@@ -1,5 +1,7 @@
 # rapid-react-2022
 
+[![CI](https://github.com/IronMechDevelopers/rapid-react-2022/actions/workflows/main.yml/badge.svg)](https://github.com/IronMechDevelopers/rapid-react-2022/actions/workflows/main.yml)
+
 FRC 5684's robot code for the 2022 FRC game, Rapid React.
 
 ## Overview
