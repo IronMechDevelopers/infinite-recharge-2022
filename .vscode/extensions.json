@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "wpilibsuite.vscode-wpilib",
+        "redhat.java",
+        "richardwillis.vscode-spotless-gradle",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-dependency"
+    ]
+}
