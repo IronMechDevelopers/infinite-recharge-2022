@@ -38,16 +38,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-public
-class RobotContainer {
+public class RobotContainer {
 
   final Drivetrain m_drivetrain = new Drivetrain();
   final Climber m_climber = new Climber();
@@ -59,94 +55,67 @@ class RobotContainer {
   private final Joystick driverRightStick = new Joystick(1);
   private final Joystick copilot = new Joystick(2);
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public
-  RobotContainer() {
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public RobotContainer() {
 
-    m_drivetrain.setDefaultCommand(new Drive(driverLeftStick::getX,
-                                             driverRightStick::getY,
-                                             m_drivetrain));
+    m_drivetrain.setDefaultCommand(
+        new Drive(driverLeftStick::getX, driverRightStick::getY, m_drivetrain));
 
     // Configure the button bindings
     configureButtonBindings();
   }
 
-  public static
-  RamseteCommand followPath(Drivetrain m_robotDrive, Trajectory path) {
+  public static RamseteCommand followPath(Drivetrain m_robotDrive, Trajectory path) {
     System.out.println("In follow Path");
-    return new RamseteCommand(path,
-                              m_robotDrive::getPose,
-                              new RamseteController(AutoConstants.kRamseteB,
-                                                    AutoConstants.kRamseteZeta),
-                              new SimpleMotorFeedforward(DriveConstants.ksVolts,
-                                                         DriveConstants.kvVoltSecondsPerMeter,
-                                                         DriveConstants.kaVoltSecondsSquaredPerMeter),
-                              DriveConstants.kDriveKinematics,
-                              m_robotDrive::getWheelSpeeds,
-                              new PIDController(DriveConstants.kPDriveVel,
-                                                0,
-                                                0),
-                              new PIDController(DriveConstants.kPDriveVel,
-                                                0,
-                                                0),
-                              // RamseteCommand passes volts to the callback
-                              m_robotDrive::tankDriveVolts,
-                              m_robotDrive);
+    return new RamseteCommand(
+        path,
+        m_robotDrive::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(
+            DriveConstants.ksVolts,
+            DriveConstants.kvVoltSecondsPerMeter,
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        m_robotDrive::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        m_robotDrive::tankDriveVolts,
+        m_robotDrive);
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
+   * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private
-  void configureButtonBindings() {
+  private void configureButtonBindings() {
 
     // buttons here
-    final JoystickButton climbUp = new JoystickButton(driverLeftStick,
-                                                      5);
-    final JoystickButton climbDown = new JoystickButton(driverLeftStick,
-                                                        3);
-    final JoystickButton windowUp = new JoystickButton(driverRightStick,
-                                                       5);
-    final JoystickButton windowDown = new JoystickButton(driverRightStick,
-                                                         3);
-    final JoystickButton conveyorUp = new JoystickButton(copilot,
-                                                         6);
-    final JoystickButton conveyorUpTrigger = new JoystickButton(copilot,
-                                                                1);
-    final JoystickButton driverCollect = new JoystickButton(driverRightStick,
-                                                            4);
-    final JoystickButton conveyorDownSlow = new JoystickButton(copilot,
-                                                               7);
-    final JoystickButton shootHigh = new JoystickButton(copilot,
-                                                        3);
-    final JoystickButton shootLow = new JoystickButton(copilot,
-                                                       2);
-    final JoystickButton reverseLockerButton = new JoystickButton(driverRightStick,
-                                                                  3);
+    final JoystickButton climbUp = new JoystickButton(driverLeftStick, 5);
+    final JoystickButton climbDown = new JoystickButton(driverLeftStick, 3);
+    final JoystickButton windowUp = new JoystickButton(driverRightStick, 5);
+    final JoystickButton windowDown = new JoystickButton(driverRightStick, 3);
+    final JoystickButton conveyorUp = new JoystickButton(copilot, 6);
+    final JoystickButton conveyorUpTrigger = new JoystickButton(copilot, 1);
+    final JoystickButton driverCollect = new JoystickButton(driverRightStick, 4);
+    final JoystickButton conveyorDownSlow = new JoystickButton(copilot, 7);
+    final JoystickButton shootHigh = new JoystickButton(copilot, 3);
+    final JoystickButton shootLow = new JoystickButton(copilot, 2);
+    final JoystickButton reverseLockerButton = new JoystickButton(driverRightStick, 3);
 
     // button actions here
     climbUp.whileHeld(new ClimbUp(m_climber));
     climbDown.whileHeld(new ClimbDown(m_climber));
     conveyorUp.whileHeld(new ConveyorUp(m_conveyor));
     driverCollect.whileHeld(new DriverConveyorUp(m_conveyor));
-    conveyorDownSlow.whileHeld(new ConveyorDown(m_conveyor,
-                                                0));
-    shootHigh.whileHeld(new Shoot(m_shooter,
-                                  ShooterConstants.HIGH_GOAL_SPEED));
-    shootLow.whileHeld(new Shoot(m_shooter,
-                                 ShooterConstants.LOW_GOAL_SPEED));
+    conveyorDownSlow.whileHeld(new ConveyorDown(m_conveyor, 0));
+    shootHigh.whileHeld(new Shoot(m_shooter, ShooterConstants.HIGH_GOAL_SPEED));
+    shootLow.whileHeld(new Shoot(m_shooter, ShooterConstants.LOW_GOAL_SPEED));
     conveyorUpTrigger.whileHeld(new ConveyorUp(m_conveyor));
-    windowUp.whileHeld(new Window(m_climber,
-                                  .25));
-    windowDown.whileHeld(new Window(m_climber,
-                                    -.25));
+    windowUp.whileHeld(new Window(m_climber, .25));
+    windowDown.whileHeld(new Window(m_climber, -.25));
     // reverseLockerButton.whileHeld();
 
   }
@@ -156,46 +125,27 @@ class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public
-  Command getAutonomousCommand(String autoMode) {
-    SmartDashboard.putString("AutoMode",
-                             "NONE");
+  public Command getAutonomousCommand(String autoMode) {
+    SmartDashboard.putString("AutoMode", "NONE");
     switch (autoMode) {
       case AutoConstants.SIMPLE_AUTO:
-        SmartDashboard.putString("AutoMode",
-                                 "SIMPLEAUTO");
-        return new SimpleAuto(m_shooter,
-                              m_conveyor,
-                              m_drivetrain);
+        SmartDashboard.putString("AutoMode", "SIMPLEAUTO");
+        return new SimpleAuto(m_shooter, m_conveyor, m_drivetrain);
       case AutoConstants.DRIVE:
-        SmartDashboard.putString("AutoMode",
-                                 "DRIVE");
-        return new DriveAuto(1,
-                             m_drivetrain).withTimeout(3.0);
+        SmartDashboard.putString("AutoMode", "DRIVE");
+        return new DriveAuto(1, m_drivetrain).withTimeout(3.0);
       case AutoConstants.DOUBLE_CARGO_LOW_LOW:
-        SmartDashboard.putString("AutoMode",
-                                 "DOUBLECARGOLOWLOW");
-        return new DoubleCargoLowLow(m_shooter,
-                                     m_conveyor,
-                                     m_drivetrain);
+        SmartDashboard.putString("AutoMode", "DOUBLECARGOLOWLOW");
+        return new DoubleCargoLowLow(m_shooter, m_conveyor, m_drivetrain);
       case AutoConstants.DOUBLE_CARGO_LOW_HIGH:
-        SmartDashboard.putString("AutoMode",
-                                 "DOUBLECARGOLOWHIGH");
-        return new DoubleCargoLowHigh(m_shooter,
-                                      m_conveyor,
-                                      m_drivetrain);
+        SmartDashboard.putString("AutoMode", "DOUBLECARGOLOWHIGH");
+        return new DoubleCargoLowHigh(m_shooter, m_conveyor, m_drivetrain);
       case AutoConstants.SIMPLE_AUTO_LOW_LOW:
-        SmartDashboard.putString("AutoMode",
-                                 "SIMPLEAUTOLOWLOW");
-        return new SimpleAutoLowLow(m_shooter,
-                                    m_conveyor,
-                                    m_drivetrain);
+        SmartDashboard.putString("AutoMode", "SIMPLEAUTOLOWLOW");
+        return new SimpleAutoLowLow(m_shooter, m_conveyor, m_drivetrain);
       case AutoConstants.SIMPLE_AUTO_HIGH_HIGH:
-        SmartDashboard.putString("AutoMode",
-                                 "SIMPLEAUTOHIGHHIGH");
-        return new SimpleAutoHighHigh(m_shooter,
-                                      m_conveyor,
-                                      m_drivetrain);
+        SmartDashboard.putString("AutoMode", "SIMPLEAUTOHIGHHIGH");
+        return new SimpleAutoHighHigh(m_shooter, m_conveyor, m_drivetrain);
     }
 
     return null;

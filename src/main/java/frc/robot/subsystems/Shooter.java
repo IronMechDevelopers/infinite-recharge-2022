@@ -6,19 +6,14 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
-public
-class Shooter extends SubsystemBase {
+public class Shooter extends SubsystemBase {
 
   private VictorSPX shooterMotor = new VictorSPX(ShooterConstants.SHOOTER_CANBUS_NUMBER);
   private Encoder encoder;
 
-  public
-  Shooter() {
+  public Shooter() {
     super();
-    encoder = new Encoder(1,
-                          2,
-                          false,
-                          Encoder.EncodingType.k4X);
+    encoder = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
     encoder.setDistancePerPulse(1.0 / 2048);
     shooterMotor.setInverted(true);
 
@@ -36,20 +31,15 @@ class Shooter extends SubsystemBase {
     encoder.setSamplesToAverage(5);
   }
 
-  public
-  double getEncoderRate()
-  {
+  public double getEncoderRate() {
     return encoder.getRate();
   }
 
-  public
-  void set(double value) {
-    shooterMotor.set(VictorSPXControlMode.PercentOutput,
-                     value);
+  public void set(double value) {
+    shooterMotor.set(VictorSPXControlMode.PercentOutput, value);
   }
 
-  public
-  void bangBangShoot(double value) {
-    //TODO set up encoder
+  public void bangBangShoot(double value) {
+    // TODO set up encoder
   }
 }
